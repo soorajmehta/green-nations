@@ -14,6 +14,12 @@ import { CountryDetailComponent } from './country-detail/country-detail.componen
 import { CountryListComponent } from './country-list/country-list.component';
 import { CountryMaintComponent } from './country-maint/country-maint.component';
 import { AuthenticatedUserComponent } from './authenticated-user/authenticated-user.component';
+import { UserService } from './services/user.service';
+import { UserApi } from '../fw/users/user-api';
+import { AuthGuard } from './services/auth-guard.service';
+import { AppDataService } from './services/app-data.service';
+import { CountryPanelComponent } from './panels/country-panel/country-panel.component';
+import { ImagePanelComponent } from './panels/image-panel/image-panel.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +29,9 @@ import { AuthenticatedUserComponent } from './authenticated-user/authenticated-u
     CountryDetailComponent,
     CountryListComponent,
     CountryMaintComponent,
-    AuthenticatedUserComponent
+    AuthenticatedUserComponent,
+    CountryPanelComponent,
+    ImagePanelComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +41,12 @@ import { AuthenticatedUserComponent } from './authenticated-user/authenticated-u
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    UserService,
+    { provide: UserApi ,useExisting: UserService },
+    AuthGuard,
+    AppDataService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
